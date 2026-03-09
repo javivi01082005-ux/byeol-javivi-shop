@@ -1,80 +1,368 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Byeol Javivi Shop</title>
-<style>
-body{margin:0;font-family:Arial, Helvetica, sans-serif;background:#0e1a3a;color:white;text-align:center}
-header{padding:40px 20px}
-header img{max-width:300px}
-nav{background:#111c44;padding:10px}
-nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold}
-section{padding:60px 20px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;padding:20px}
-.card{background:#16245c;padding:20px;border-radius:12px}
-footer{background:#0b1430;padding:20px;margin-top:40px}
-button{background:#6c8cff;border:none;padding:10px 20px;border-radius:8px;color:white;font-size:16px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Byeol Javivi Shop</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #08112f 0%, #0b1d5d 45%, #09163f 100%);
+      color: white;
+    }
+    header {
+      padding: 28px 20px 18px;
+      text-align: center;
+      background: rgba(6, 10, 36, 0.45);
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(6px);
+      z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .logo-wrap img {
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.35);
+      box-shadow: 0 0 25px rgba(135, 185, 255, 0.35);
+    }
+    h1 {
+      margin: 8px 0;
+      font-size: 3rem;
+    }
+    .subtitle {
+      margin: 0;
+      font-size: 1.2rem;
+      opacity: 0.95;
+    }
+    .search-bar {
+      max-width: 520px;
+      margin: 18px auto 0;
+      display: flex;
+      gap: 10px;
+      padding: 0 8px;
+    }
+    .search-bar input {
+      flex: 1;
+      padding: 13px 15px;
+      border-radius: 999px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+    }
+    .search-bar button {
+      padding: 13px 18px;
+      border: none;
+      border-radius: 999px;
+      background: #7ca8ff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    nav {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 10px;
+    }
+    .hero {
+      text-align: center;
+      padding: 56px 20px 26px;
+    }
+    .hero-box {
+      max-width: 950px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 28px;
+      padding: 34px 22px;
+      box-shadow: 0 16px 35px rgba(0,0,0,0.22);
+    }
+    .hero h2 {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      max-width: 760px;
+      margin: 0 auto;
+      font-size: 1.08rem;
+      line-height: 1.6;
+    }
+    section {
+      padding: 36px 20px 20px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    .section-text {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+      opacity: 0.95;
+    }
+    .categories {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+    }
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+    .card p {
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+    .double-sections {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .country-box {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 24px;
+    }
+    .country-box h3 {
+      margin-top: 0;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+    .sub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .sub-card {
+      background: rgba(7, 17, 48, 0.55);
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 110px;
+    }
+    .sub-card h4 {
+      margin: 0 0 8px;
+    }
+    .cta {
+      text-align: center;
+      padding: 50px 20px 60px;
+    }
+    .cta a {
+      display: inline-block;
+      background: #7ca8ff;
+      color: white;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-weight: bold;
+      margin-top: 12px;
+    }
+    footer {
+      text-align: center;
+      padding: 24px 20px 36px;
+      background: rgba(0,0,0,0.18);
+      margin-top: 20px;
+    }
+    @media (max-width: 700px) {
+      h1 { font-size: 2.2rem; }
+      .logo-wrap img { width: 130px; height: 130px; }
+      .hero h2 { font-size: 1.8rem; }
+      .sub-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Logo Byeol Javivi Shop">
+    </div>
+    <h1>Byeol Javivi Shop</h1>
+    <p class="subtitle">K-Pop, anime y cultura japonesa • Fanmade merch con estilo</p>
 
-<header>
-<img src="logo.png" alt="Byeol Javivi Shop Logo">
-<h1>Byeol Javivi Shop</h1>
-<p>Fanmade K-Pop Merch • Photocards by Javivi</p>
-</header>
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar photocards, anime, Japón, Corea...">
+      <button>Buscar</button>
+    </div>
 
-<nav>
-<a href="#inicio">Inicio</a>
-<a href="#productos">Productos</a>
-<a href="#sobre">Sobre la tienda</a>
-<a href="#comprar">Cómo comprar</a>
-</nav>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#corea">Corea</a>
+      <a href="#japon">Japón</a>
+      <a href="#productos">Productos</a>
+      <a href="#comprar">Cómo comprar</a>
+    </nav>
+  </header>
 
-<section id="inicio">
-<h2>Bienvenido</h2>
-<p>Tienda fanmade creada para fans de K-pop. Aquí encontrarás photocards, stickers y merch inspirado en tus idols favoritos.</p>
-</section>
+  <section class="hero" id="inicio">
+    <div class="hero-box">
+      <h2>Merch fanmade para fans de Corea y Japón</h2>
+      <p>
+        Bienvenido a Byeol Javivi Shop. Aquí encontrarás photocards, stickers, packs y merch inspirado en K-pop,
+        anime y cultura japonesa. Una tienda pensada para fans que aman coleccionar cosas lindas y especiales.
+      </p>
+    </div>
+  </section>
 
-<section id="productos">
-<h2>Productos</h2>
-<div class="products">
-<div class="card">
-<h3>Photocards</h3>
-<p>Photocards fanmade de K-pop.</p>
-</div>
-<div class="card">
-<h3>Stickers</h3>
-<p>Stickers inspirados en idols.</p>
-</div>
-<div class="card">
-<h3>Packs</h3>
-<p>Packs sorpresa para coleccionistas.</p>
-</div>
-<div class="card">
-<h3>Freebies</h3>
-<p>Extras para fans y coleccionistas.</p>
-</div>
-</div>
-</section>
+  <section id="corea">
+    <h2 class="section-title">Corea</h2>
+    <p class="section-text">Todo lo inspirado en K-pop y cultura coreana, con secciones separadas para que la tienda se vea más ordenada.</p>
+    <div class="country-box double-sections">
+      <div class="country-box">
+        <h3>K-Pop</h3>
+        <div class="sub-grid">
+          <div class="sub-card">
+            <h4>Photocards</h4>
+            <p>Photocards fanmade de tus grupos e idols favoritos.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Stickers</h4>
+            <p>Stickers inspirados en conceptos, logos y eras.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Packs</h4>
+            <p>Packs sorpresa y combos para coleccionistas.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Freebies</h4>
+            <p>Extras lindos para acompañar cada compra.</p>
+          </div>
+        </div>
+      </div>
+      <div class="country-box">
+        <h3>Cultura coreana</h3>
+        <div class="sub-grid">
+          <div class="sub-card">
+            <h4>Decoración</h4>
+            <p>Detalles y artículos con estética coreana.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Papelería</h4>
+            <p>Diseños suaves, bonitos y coleccionables.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Sets temáticos</h4>
+            <p>Combos inspirados en estilos y conceptos.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Próximamente</h4>
+            <p>Nuevas ideas para expandir tu tienda.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section id="sobre">
-<h2>Sobre Byeol Javivi Shop</h2>
-<p>Byeol significa "estrella" en coreano. Esta tienda nace del amor por el K-pop y el coleccionismo de photocards.</p>
-</section>
+  <section id="japon">
+    <h2 class="section-title">Japón</h2>
+    <p class="section-text">Una nueva sección para anime y cultura japonesa, así tu tienda no se limita solo al K-pop.</p>
+    <div class="double-sections">
+      <div class="country-box">
+        <h3>Anime</h3>
+        <div class="sub-grid">
+          <div class="sub-card">
+            <h4>Stickers anime</h4>
+            <p>Diseños inspirados en personajes, símbolos y escenas.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Photocards estilo anime</h4>
+            <p>Tarjetas y prints con estética japonesa.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Mini prints</h4>
+            <p>Ilustraciones para decorar cuadernos o paredes.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Packs temáticos</h4>
+            <p>Combos por serie, personaje o color.</p>
+          </div>
+        </div>
+      </div>
+      <div class="country-box">
+        <h3>Cultura japonesa</h3>
+        <div class="sub-grid">
+          <div class="sub-card">
+            <h4>Kawaii</h4>
+            <p>Accesorios y diseños tiernos inspirados en Japón.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Papelería</h4>
+            <p>Elementos decorativos con estilo cute y limpio.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Sets especiales</h4>
+            <p>Ideas para regalos y colecciones únicas.</p>
+          </div>
+          <div class="sub-card">
+            <h4>Próximamente</h4>
+            <p>Nuevos productos inspirados en anime y Japón.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section id="comprar">
-<h2>Cómo comprar</h2>
-<p>1. Elige tu producto.</p>
-<p>2. Escríbenos por Instagram o WhatsApp.</p>
-<p>3. Coordinamos pago y envío.</p>
-<button>Contactar</button>
-</section>
+  <section id="productos">
+    <h2 class="section-title">Productos destacados</h2>
+    <p class="section-text">Aquí puedes mostrar tus productos principales con fotos más adelante.</p>
+    <div class="categories">
+      <div class="card">
+        <h3>Photocards K-Pop</h3>
+        <p>Inspiradas en BTS, Stray Kids, Blackpink y más.</p>
+      </div>
+      <div class="card">
+        <h3>Stickers anime</h3>
+        <p>Diseños fanmade inspirados en cultura japonesa.</p>
+      </div>
+      <div class="card">
+        <h3>Packs sorpresa</h3>
+        <p>Combos especiales para fans y coleccionistas.</p>
+      </div>
+      <div class="card">
+        <h3>Merch temática</h3>
+        <p>Ideas nuevas para Corea, Japón y estilo kawaii.</p>
+      </div>
+    </div>
+  </section>
 
-<footer>
-<p>© 2026 Byeol Javivi Shop</p>
-</footer>
+  <section class="cta" id="comprar">
+    <h2 class="section-title">Cómo comprar</h2>
+    <p class="section-text">Elige tu producto, escríbeme por Instagram o WhatsApp y coordinamos pago y envío.</p>
+    <a href="#">Contactar</a>
+  </section>
 
+  <footer>
+    <p>© 2026 Byeol Javivi Shop • Corea, Japón, K-pop, anime y cultura fanmade</p>
+  </footer>
 </body>
 </html>
