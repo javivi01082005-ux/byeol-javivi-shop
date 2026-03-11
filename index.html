@@ -1,368 +1,670 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Byeol Javivi Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #08112f 0%, #0b1d5d 45%, #09163f 100%);
-      color: white;
+    :root {
+      --bg-main: #0f1026;
+      --bg-secondary: #1b1f4b;
+      --accent-primary: #8f7cff;
+      --accent-secondary: #c5b8ff;
+      --accent-soft: #e7e1ff;
+      --pink-soft: #f1d8ff;
+      --text-main: #f8f6ff;
+      --text-soft: #ddd8f5;
+      --border-soft: rgba(231, 225, 255, 0.24);
+      --card-bg: rgba(20, 18, 48, 0.58);
+      --shadow: 0 18px 60px rgba(10, 8, 30, 0.45);
     }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(143, 124, 255, 0.32), transparent 26%),
+        radial-gradient(circle at 82% 18%, rgba(197, 184, 255, 0.16), transparent 22%),
+        radial-gradient(circle at 78% 78%, rgba(241, 216, 255, 0.14), transparent 18%),
+        linear-gradient(135deg, #0b0d20 0%, #15173a 45%, #1c2154 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 12% 22%, rgba(255,255,255,0.9), transparent 55%),
+        radial-gradient(1.5px 1.5px at 74% 14%, rgba(255,255,255,0.7), transparent 55%),
+        radial-gradient(2px 2px at 64% 68%, rgba(255,255,255,0.8), transparent 55%),
+        radial-gradient(1.5px 1.5px at 27% 74%, rgba(255,255,255,0.65), transparent 55%),
+        radial-gradient(2px 2px at 88% 45%, rgba(255,255,255,0.8), transparent 55%),
+        radial-gradient(1px 1px at 48% 28%, rgba(255,255,255,0.75), transparent 55%),
+        radial-gradient(1px 1px at 33% 48%, rgba(255,255,255,0.7), transparent 55%),
+        radial-gradient(1px 1px at 55% 84%, rgba(255,255,255,0.6), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 0;
+      animation: twinkle 7s ease-in-out infinite alternate;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
     header {
-      padding: 28px 20px 18px;
-      text-align: center;
-      background: rgba(6, 10, 36, 0.45);
       position: sticky;
       top: 0;
-      backdrop-filter: blur(6px);
-      z-index: 10;
-      border-bottom: 1px solid rgba(255,255,255,0.12);
+      z-index: 30;
+      backdrop-filter: blur(16px);
+      background: rgba(11, 13, 32, 0.74);
+      border-bottom: 1px solid rgba(231, 225, 255, 0.1);
     }
-    .logo-wrap {
+
+    .nav {
+      min-height: 84px;
       display: flex;
-      justify-content: center;
-      margin-bottom: 10px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
-    .logo-wrap img {
-      width: 170px;
-      height: 170px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.35);
-      box-shadow: 0 0 25px rgba(135, 185, 255, 0.35);
-    }
-    h1 {
-      margin: 8px 0;
-      font-size: 3rem;
-    }
-    .subtitle {
-      margin: 0;
-      font-size: 1.2rem;
-      opacity: 0.95;
-    }
-    .search-bar {
-      max-width: 520px;
-      margin: 18px auto 0;
+
+    .brand {
       display: flex;
-      gap: 10px;
-      padding: 0 8px;
-    }
-    .search-bar input {
-      flex: 1;
-      padding: 13px 15px;
-      border-radius: 999px;
-      border: none;
-      font-size: 1rem;
-      outline: none;
-    }
-    .search-bar button {
-      padding: 13px 18px;
-      border: none;
-      border-radius: 999px;
-      background: #7ca8ff;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    nav {
-      margin-top: 18px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 8px 10px;
-    }
-    .hero {
-      text-align: center;
-      padding: 56px 20px 26px;
-    }
-    .hero-box {
-      max-width: 950px;
-      margin: 0 auto;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 28px;
-      padding: 34px 22px;
-      box-shadow: 0 16px 35px rgba(0,0,0,0.22);
-    }
-    .hero h2 {
-      font-size: 2.2rem;
-      margin-bottom: 12px;
-    }
-    .hero p {
-      max-width: 760px;
-      margin: 0 auto;
-      font-size: 1.08rem;
-      line-height: 1.6;
-    }
-    section {
-      padding: 36px 20px 20px;
-    }
-    .section-title {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 8px;
-    }
-    .section-text {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto 28px;
-      line-height: 1.6;
-      opacity: 0.95;
-    }
-    .categories {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
-    .card {
-      background: rgba(255,255,255,0.09);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.18);
-    }
-    .card h3 {
-      margin-top: 0;
-      font-size: 1.25rem;
-    }
-    .card p {
-      margin-bottom: 0;
-      line-height: 1.5;
-    }
-    .double-sections {
-      max-width: 1150px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-    }
-    .country-box {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 24px;
-      padding: 24px;
-    }
-    .country-box h3 {
-      margin-top: 0;
-      font-size: 1.8rem;
-      text-align: center;
-    }
-    .sub-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      align-items: center;
       gap: 14px;
-      margin-top: 18px;
-    }
-    .sub-card {
-      background: rgba(7, 17, 48, 0.55);
-      border-radius: 16px;
-      padding: 16px;
-      min-height: 110px;
-    }
-    .sub-card h4 {
-      margin: 0 0 8px;
-    }
-    .cta {
-      text-align: center;
-      padding: 50px 20px 60px;
-    }
-    .cta a {
-      display: inline-block;
-      background: #7ca8ff;
-      color: white;
       text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      border-radius: 50%;
+      box-shadow: 0 0 24px rgba(143, 124, 255, 0.28);
+      background: rgba(255,255,255,0.06);
+      padding: 4px;
+    }
+
+    .brand-text h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.45rem;
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-text span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-top: 4px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-soft);
+      font-weight: 600;
+      transition: 0.25s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent-soft);
+    }
+
+    .hero {
+      min-height: calc(100vh - 84px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 90px 0 90px;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(197, 184, 255, 0.1);
+      border: 1px solid rgba(231, 225, 255, 0.18);
+      color: var(--accent-soft);
+      font-size: 0.92rem;
+      margin-bottom: 22px;
+    }
+
+    .hero h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: 18px;
+    }
+
+    .hero h2 .accent {
+      color: var(--pink-soft);
+      text-shadow: 0 0 28px rgba(241, 216, 255, 0.22);
+    }
+
+    .hero p {
+      color: var(--text-soft);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 14px 24px;
       border-radius: 999px;
-      font-weight: bold;
-      margin-top: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
     }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary), #b597ff);
+      color: #ffffff;
+      box-shadow: 0 14px 30px rgba(143, 124, 255, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      color: var(--accent-soft);
+      border: 1px solid rgba(231, 225, 255, 0.18);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(23, 21, 55, 0.72), rgba(13, 14, 34, 0.62));
+      border: 1px solid var(--border-soft);
+      border-radius: 32px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(143, 124, 255, 0.28), transparent 70%);
+      top: -80px;
+      right: -80px;
+    }
+
+    .hero-card::after {
+      content: "✦";
+      position: absolute;
+      bottom: 26px;
+      right: 28px;
+      font-size: 2.6rem;
+      color: rgba(231, 225, 255, 0.22);
+    }
+
+    .logo-frame {
+      display: grid;
+      place-items: center;
+      min-height: 360px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(231, 225, 255, 0.12);
+      margin-bottom: 24px;
+      padding: 24px;
+    }
+
+    .logo-frame img {
+      max-width: min(100%, 360px);
+      width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 30px rgba(143, 124, 255, 0.25));
+    }
+
+    .card-label {
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: var(--accent-secondary);
+      margin-bottom: 12px;
+    }
+
+    .hero-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.75rem;
+      margin-bottom: 12px;
+    }
+
+    .hero-card p {
+      margin-bottom: 0;
+      font-size: 0.98rem;
+      line-height: 1.8;
+    }
+
+    section {
+      padding: 28px 0 80px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      margin-bottom: 14px;
+    }
+
+    .section-text {
+      color: var(--text-soft);
+      max-width: 700px;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 24px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h4 {
+      margin-bottom: 10px;
+      color: var(--accent-soft);
+      font-size: 1.08rem;
+    }
+
+    .card p {
+      color: var(--text-soft);
+      line-height: 1.7;
+      font-size: 0.96rem;
+    }
+
     footer {
-      text-align: center;
-      padding: 24px 20px 36px;
-      background: rgba(0,0,0,0.18);
-      margin-top: 20px;
+      border-top: 1px solid rgba(231, 225, 255, 0.1);
+      padding: 28px 0 42px;
+      color: var(--text-soft);
+      font-size: 0.95rem;
     }
-    @media (max-width: 700px) {
-      h1 { font-size: 2.2rem; }
-      .logo-wrap img { width: 130px; height: 130px; }
-      .hero h2 { font-size: 1.8rem; }
-      .sub-grid { grid-template-columns: 1fr; }
+
+    .socials {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .socials a {
+      text-decoration: none;
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .product-section {
+      margin-top: 36px;
+    }
+
+    .subsection-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.35rem;
+      margin-bottom: 14px;
+      color: var(--pink-soft);
+    }
+
+    .group-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 10px 0 24px;
+    }
+
+    .group-tag {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(231, 225, 255, 0.18);
+      color: var(--accent-soft);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .buy-btn {
+      display: inline-flex;
+      margin-top: 14px;
+      padding: 11px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--accent-primary), #b597ff);
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 10px 24px rgba(143, 124, 255, 0.22);
+    }
+
+    .category-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .category-card {
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .category-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(231, 225, 255, 0.38);
+      box-shadow: 0 18px 36px rgba(10, 8, 30, 0.34);
+    }
+
+    .product-detail {
+      margin-top: 22px;
+      scroll-margin-top: 110px;
+    }
+
+    .product-detail .card {
+      min-height: 100%;
+    }
+
+    .mini-note {
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      margin-top: 8px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 40;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: linear-gradient(135deg, #8f7cff, #b597ff);
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 14px 32px rgba(10, 8, 30, 0.38);
+    }
+
+    @keyframes twinkle {
+      0% {
+        opacity: 0.65;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1.02);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-top: 46px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        flex-direction: column;
+        justify-content: center;
+        padding: 14px 0;
+      }
+
+      nav ul {
+        justify-content: center;
+        gap: 18px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .brand {
+        align-items: flex-start;
+      }
+
+      .brand-text h1 {
+        font-size: 1.2rem;
+      }
+
+      .hero h2 {
+        font-size: 2.1rem;
+      }
+
+      .hero-card,
+      .card {
+        padding: 22px;
+      }
+
+      .logo-frame {
+        min-height: 260px;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo-wrap">
-      <img src="logo.png" alt="Logo Byeol Javivi Shop">
-    </div>
-    <h1>Byeol Javivi Shop</h1>
-    <p class="subtitle">K-Pop, anime y cultura japonesa • Fanmade merch con estilo</p>
+    <div class="container nav">
+      <a href="#inicio" class="brand">
+        <img src="./logo-byeol-javivi.png" alt="Logo de Byeol Javivi Shop" />
+        <div class="brand-text">
+          <h1>Byeol Javivi Shop</h1>
+          <span>Fanmade K-Pop Merch</span>
+        </div>
+      </a>
 
-    <div class="search-bar">
-      <input type="text" placeholder="Buscar photocards, anime, Japón, Corea...">
-      <button>Buscar</button>
+      <nav>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="#sobre-mi">Sobre mí</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
     </div>
-
-    <nav>
-      <a href="#inicio">Inicio</a>
-      <a href="#corea">Corea</a>
-      <a href="#japon">Japón</a>
-      <a href="#productos">Productos</a>
-      <a href="#comprar">Cómo comprar</a>
-    </nav>
   </header>
 
-  <section class="hero" id="inicio">
-    <div class="hero-box">
-      <h2>Merch fanmade para fans de Corea y Japón</h2>
-      <p>
-        Bienvenido a Byeol Javivi Shop. Aquí encontrarás photocards, stickers, packs y merch inspirado en K-pop,
-        anime y cultura japonesa. Una tienda pensada para fans que aman coleccionar cosas lindas y especiales.
+  <main>
+    <section class="container hero" id="inicio">
+      <div class="hero-copy">
+        
+        <p>
+          Hola, soy Javivi. Esta tienda nació de mi amor por el arte coreano y japonés. Aquí vas a encontrar stickers, photocards, posters y diseños hechos con cariño, y muchas cosas mas en relaciones con la cultura coreana y japonesa.
+        </p>
+        <div class="cta-group">
+          <a href="#productos" class="btn btn-primary">Ver productos</a>
+          <a href="#contacto" class="btn btn-secondary">Redes y contacto</a>
+        </div>
+      </div>
+
+      </section>
+
+    <section class="container" id="productos">
+      <h3 class="section-title">Productos</h3>
+      <p class="section-text">
+        Aquí puedes ver las categorías disponibles en la tienda. Al entrar en cada una podrás ver lo que ofrezco y los grupos con los que trabajo por ahora.
       </p>
-    </div>
-  </section>
 
-  <section id="corea">
-    <h2 class="section-title">Corea</h2>
-    <p class="section-text">Todo lo inspirado en K-pop y cultura coreana, con secciones separadas para que la tienda se vea más ordenada.</p>
-    <div class="country-box double-sections">
-      <div class="country-box">
-        <h3>K-Pop</h3>
-        <div class="sub-grid">
-          <div class="sub-card">
-            <h4>Photocards</h4>
-            <p>Photocards fanmade de tus grupos e idols favoritos.</p>
-          </div>
-          <div class="sub-card">
-            <h4>Stickers</h4>
-            <p>Stickers inspirados en conceptos, logos y eras.</p>
-          </div>
-          <div class="sub-card">
+      <div class="product-section">
+        <h4 class="subsection-title">Categorías disponibles</h4>
+        <div class="grid">
+          <a href="#stickers-productos" class="category-link">
+            <article class="card category-card">
+              <h4>Stickers</h4>
+              <p>Diseños decorativos inspirados en conceptos, miembros y detalles visuales de tus grupos favoritos.</p>
+              <div class="buy-btn">Ver sección</div>
+            </article>
+          </a>
+          <a href="#photocards-productos" class="category-link">
+            <article class="card category-card">
+              <h4>Photocards</h4>
+              <p>Photocards fanmade para coleccionar, regalar o sumar a tus packs personalizados.</p>
+              <div class="buy-btn">Ver sección</div>
+            </article>
+          </a>
+          <a href="#posters-productos" class="category-link">
+            <article class="card category-card">
+              <h4>Posters y packs</h4>
+              <p>Posters, combos y extras pensados para fans que quieren una experiencia más especial.</p>
+              <div class="buy-btn">Ver sección</div>
+            </article>
+          </a>
+        </div>
+      </div>
+
+      <div class="product-section product-detail" id="stickers-productos">
+        <h4 class="subsection-title">Stickers</h4>
+        <p class="section-text">
+          Stickers inspirados en grupos de K-pop con detalles visuales suaves y coleccionables.
+        </p>
+        <div class="grid">
+          <article class="card">
+            <h4>Stickers disponibles</h4>
+            <p>Stickers individuales, mini sets y diseños para decorar cuadernos, carpetas, celulares y más.</p>
+            <p class="mini-note">Grupos actuales: Stray Kids, BTS y Blackpink.</p>
+            <a href="#contacto" class="buy-btn">Consultar pedido</a>
+          </article>
+          <article class="card">
+            <h4>Estilo</h4>
+            <p>Diseños inspirados en eras, colores, conceptos visuales, frases y detalles que identifican a cada grupo.</p>
+          </article>
+          <article class="card">
+            <h4>Próximamente</h4>
+            <p>Más ideas y opciones inspiradas en otros grupos para ampliar poco a poco la tienda.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="product-section product-detail" id="photocards-productos">
+        <h4 class="subsection-title">Photocards</h4>
+        <p class="section-text">
+          Photocards hechas con cariño para fans que quieren coleccionar o regalar diseños especiales.
+        </p>
+        <div class="grid">
+          <article class="card">
+            <h4>Photocards disponibles</h4>
+            <p>Photocards individuales, sets y modelos especiales inspirados en conceptos visuales del K-pop.</p>
+            <p class="mini-note">Grupos actuales: Stray Kids, BTS y Blackpink.</p>
+            <a href="#contacto" class="buy-btn">Consultar pedido</a>
+          </article>
+          <article class="card">
+            <h4>Detalles</h4>
+            <p>Diseños pensados para verse lindos, ordenados y especiales dentro de una colección fanmade.</p>
+          </article>
+          <article class="card">
+            <h4>Más adelante</h4>
+            <p>Se irán sumando nuevas ideas inspiradas en otros grupos y más variedades de diseño.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="product-section product-detail" id="posters-productos">
+        <h4 class="subsection-title">Posters y packs</h4>
+        <p class="section-text">
+          Opciones pensadas para fans que quieran algo más completo o decorativo.
+        </p>
+        <div class="grid">
+          <article class="card">
+            <h4>Posters</h4>
+            <p>Posters inspirados en conceptos visuales de Stray Kids, BTS y Blackpink para decorar tu espacio.</p>
+            <a href="#contacto" class="buy-btn">Consultar pedido</a>
+          </article>
+          <article class="card">
             <h4>Packs</h4>
-            <p>Packs sorpresa y combos para coleccionistas.</p>
-          </div>
-          <div class="sub-card">
-            <h4>Freebies</h4>
-            <p>Extras lindos para acompañar cada compra.</p>
-          </div>
+            <p>Combos que pueden incluir stickers, photocards y extras para hacer cada pedido más especial.</p>
+            <a href="#contacto" class="buy-btn">Consultar pedido</a>
+          </article>
+          <article class="card">
+            <h4>Más opciones</h4>
+            <p>Con el tiempo habrá más opciones inspiradas en otros grupos y nuevas categorías para la tienda.</p>
+          </article>
         </div>
       </div>
-      <div class="country-box">
-        <h3>Cultura coreana</h3>
-        <div class="sub-grid">
-          <div class="sub-card">
-            <h4>Decoración</h4>
-            <p>Detalles y artículos con estética coreana.</p>
-          </div>
-          <div class="sub-card">
-            <h4>Papelería</h4>
-            <p>Diseños suaves, bonitos y coleccionables.</p>
-          </div>
-          <div class="sub-card">
-            <h4>Sets temáticos</h4>
-            <p>Combos inspirados en estilos y conceptos.</p>
-          </div>
-          <div class="sub-card">
-            <h4>Próximamente</h4>
-            <p>Nuevas ideas para expandir tu tienda.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="japon">
-    <h2 class="section-title">Japón</h2>
-    <p class="section-text">Una nueva sección para anime y cultura japonesa, así tu tienda no se limita solo al K-pop.</p>
-    <div class="double-sections">
-      <div class="country-box">
-        <h3>Anime</h3>
-        <div class="sub-grid">
-          <div class="sub-card">
-            <h4>Stickers anime</h4>
-            <p>Diseños inspirados en personajes, símbolos y escenas.</p>
-          </div>
-          <div class="sub-card">
-            <h4>Photocards estilo anime</h4>
-            <p>Tarjetas y prints con estética japonesa.</p>
-          </div>
-          <div class="sub-card">
-            <h4>Mini prints</h4>
-            <p>Ilustraciones para decorar cuadernos o paredes.</p>
-          </div>
-          <div class="sub-card">
-            <h4>Packs temáticos</h4>
-            <p>Combos por serie, personaje o color.</p>
-          </div>
-        </div>
-      </div>
-      <div class="country-box">
-        <h3>Cultura japonesa</h3>
-        <div class="sub-grid">
-          <div class="sub-card">
-            <h4>Kawaii</h4>
-            <p>Accesorios y diseños tiernos inspirados en Japón.</p>
-          </div>
-          <div class="sub-card">
-            <h4>Papelería</h4>
-            <p>Elementos decorativos con estilo cute y limpio.</p>
-          </div>
-          <div class="sub-card">
-            <h4>Sets especiales</h4>
-            <p>Ideas para regalos y colecciones únicas.</p>
-          </div>
-          <div class="sub-card">
-            <h4>Próximamente</h4>
-            <p>Nuevos productos inspirados en anime y Japón.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="productos">
-    <h2 class="section-title">Productos destacados</h2>
-    <p class="section-text">Aquí puedes mostrar tus productos principales con fotos más adelante.</p>
-    <div class="categories">
-      <div class="card">
-        <h3>Photocards K-Pop</h3>
-        <p>Inspiradas en BTS, Stray Kids, Blackpink y más.</p>
-      </div>
-      <div class="card">
-        <h3>Stickers anime</h3>
-        <p>Diseños fanmade inspirados en cultura japonesa.</p>
-      </div>
-      <div class="card">
-        <h3>Packs sorpresa</h3>
-        <p>Combos especiales para fans y coleccionistas.</p>
-      </div>
-      <div class="card">
-        <h3>Merch temática</h3>
-        <p>Ideas nuevas para Corea, Japón y estilo kawaii.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta" id="comprar">
-    <h2 class="section-title">Cómo comprar</h2>
-    <p class="section-text">Elige tu producto, escríbeme por Instagram o WhatsApp y coordinamos pago y envío.</p>
-    <a href="#">Contactar</a>
-  </section>
+    <section class="container" id="sobre-mi">
+      <h3 class="section-title">Sobre mí</h3>
+      <p class="section-text">
+        Hola, soy Javivi. Esta tienda nació de mi amor al arte coreano y japonés, los cuales son muy importantes para mí. Espero que los stickers, photocards, posters y las cosas que haga inspiradas en estas hermosas culturas te gusten.
+      </p>
+    </section>
+  </main>
 
   <footer>
-    <p>© 2026 Byeol Javivi Shop • Corea, Japón, K-pop, anime y cultura fanmade</p>
-  </footer>
+    <div class="container" id="contacto">
+      <strong>Byeol Javivi Shop</strong>
+      <p class="section-text" style="margin: 10px 0 0; max-width: 520px;">
+        Puedes conectar aquí tus redes sociales para que la página quede lista y ordenada.
+      </p>
+      <div class="socials">
+        <a href="https://www.instagram.com/byeol.javivi.shop" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.tiktok.com/@byeol.javivi.shop" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="mailto:j1avivipa@gmail.com">Correo: j1avivipa@gmail.com</a>
+        <a href="#">WhatsApp (próximamente)</a>
+      </div>
+    </div>
+    </footer>
+
+  <a href="#contacto" class="whatsapp-float">WhatsApp próximamente</a>
 </body>
 </html>
